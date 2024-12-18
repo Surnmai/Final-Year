@@ -14,6 +14,9 @@ module.exports = {
         secondary: "10px 10px 20px rgba(2, 2, 2, 0.25)",
       },
       colors: {
+        primary: "#13131a",
+        Sidebar_bgColor: "#1c1c24",
+        Sidebar_iconBg: "#2c2f32",
         mainBackgroundColor: "#0D1117",
         columnBackgroundColor: "#161C22",
       },
