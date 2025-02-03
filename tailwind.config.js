@@ -1,3 +1,5 @@
+const { placeholder } = require("drizzle-orm");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -19,6 +21,8 @@ module.exports = {
         Sidebar_iconBg: "#2c2f32",
         mainBackgroundColor: "#0D1117",
         columnBackgroundColor: "#161C22",
+        placeholderColor: "#4b5264",
+        searchIconColor: "#1dc071",
       },
     },
   },

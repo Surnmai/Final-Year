@@ -10,14 +10,16 @@ import {
 
 // import Components
 import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <Router>
-      <div className="bg-primary relative flex min-h-screen flex-row p-4">
+      <div className="relative flex min-h-screen flex-row bg-primary p-8">
         <Sidebar />
         <div className="mx-auto max-w-[1280px] flex-1 max-sm:w-full sm:pr-5">
-          {/* Navbar  */}
+          <Navbar />
+
           <Routes>
             <Route path="/" element={<div className="text-white">Home</div>} />
           </Routes>
