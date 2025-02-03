@@ -23,7 +23,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState("dashboard");
   const navigate = useNavigate();
 
-  console.log("User Info", user);
+  //   console.log("User Info", user);
 
   //   handleLoginLogout function
   const handleLoginLogout = useCallback(() => {
@@ -32,8 +32,7 @@ const Navbar = () => {
     } else {
       login().then(() => {
         if (user) {
-          console.log(user);
-
+          //   console.log(user);
           // fetch user
         }
       });
@@ -92,7 +91,7 @@ const Navbar = () => {
                 return (
                   <li
                     key={link.name}
-                    className={`text-searchIconColor flex gap-4 p-4 font-extrabold ${isActive === link.name && "bg-[#3a3a43]"} `}
+                    className={`text-searchIconColor flex cursor-pointer gap-4 p-4 font-extrabold ${isActive === link.name && "bg-[#3a3a43]"} `}
                     onClick={() => {
                       setIsActive(link.name);
                       setMobile(false);
