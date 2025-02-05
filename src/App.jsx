@@ -12,6 +12,9 @@ import {
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 
+// import pages
+import Home from "./pages/Home";
+
 const App = () => {
   return (
     <Router>
@@ -21,7 +24,7 @@ const App = () => {
           <Navbar />
 
           <Routes>
-            <Route path="/" element={<div className="text-white">Home</div>} />
+            <Route path="/" element={<Home />} />
           </Routes>
         </div>
       </div>

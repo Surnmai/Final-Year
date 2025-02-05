@@ -19,9 +19,13 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   // destructure privy hook
   const { ready, authenticated, login, user, logout } = usePrivy();
+
+  //   destructure useNavigate
+  const navigate = useNavigate();
+
+  //   state managements
   const [mobile, setMobile] = useState(false);
   const [isActive, setIsActive] = useState("dashboard");
-  const navigate = useNavigate();
 
   //   console.log("User Info", user);
 
