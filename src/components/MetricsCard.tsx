@@ -7,6 +7,7 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
   return (
     <>
       <div className="flex flex-col rounded-xl border bg-white dark:border-neutral-800 dark:bg-[#13131a]">
+        {/* Title and Value  */}
         <div className="flex justify-between gap-x-3 p-4 md:p-5">
           {/* Title  */}
           <div>
@@ -24,7 +25,7 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
         </div>
 
         {/* Icon  */}
-        <div className="flex size-[46px] h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-blue-200 dark:bg-Sidebar_bgColor">
+        <div className="flex size-[46px] flex-shrink-0 items-center justify-center rounded-full bg-blue-600 text-blue-200 dark:bg-Sidebar_bgColor">
           <Icon size={25} className="text-green-500" />
         </div>
 
@@ -32,7 +33,7 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
         <a
           href="#"
           onClick={onClick}
-          className="inline-flex items-center justify-between rounded-b-xl border-t border-gray-200 border-x-neutral-800 px-4 py-3 text-sm text-neutral-400 hover:bg-neutral-800 md:px-5"
+          className="inline-flex items-center justify-between rounded-b-xl border-t border-neutral-800 px-4 py-3 text-sm text-neutral-400 hover:bg-neutral-800 md:px-5"
         >
           {subtitle}
           <IconChevronRight />

@@ -80,11 +80,13 @@ const DisplayInfo = () => {
     <>
       <div className="flex flex-wrap gap-[26px]">
         <div className="mt-7 grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-2">
+          {/* {console.table(metricsData.slice(0, 2))} */}
           {metricsData.slice(0, 2).map((metric) => {
             return <MetricsCard key={metric.title} {...metric} />;
           })}
         </div>
-        <div className="mt-[9px] grid w-full sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+        <div className="mt-[9px] grid w-full gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+          {/* {console.table(metricsData.slice(2))} */}
           {metricsData.slice(2).map((metric) => {
             return <MetricsCard key={metric.title} {...metric} />;
           })}
