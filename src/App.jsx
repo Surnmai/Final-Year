@@ -14,6 +14,7 @@ import Navbar from "./components/Navbar";
 
 // import pages
 import Home from "./pages/Home";
+import Onboarding from "./pages/Onboarding";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/onboarding" element={<Onboarding />} />
           </Routes>
         </div>
       </div>
