@@ -9,6 +9,12 @@ import { eq } from "drizzle-orm";
 export const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
+  // Sidebar & Navbar States
+  const [isActive, setIsActive] = useState("dashboard");
+
+  // Mobile States
+  const [mobile, setMobile] = useState(false);
+
   // States Onboarding/Registration to the Neon Framework
   const [username, setUerName] = useState("");
   const [age, setAge] = useState("");
@@ -129,6 +135,10 @@ export const AppProvider = ({ children }) => {
         setAge,
         location,
         setLocation,
+        isActive,
+        setIsActive,
+        mobile,
+        setMobile,
       }}
     >
       {children}

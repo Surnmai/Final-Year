@@ -1,21 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 
 // import NavLinks
 import { navLinks } from "../constants/data";
 
 // import icons
-import { sun } from "../assets";
+// import { sun } from "../assets";
 
 // React Router DOM
 import { Link, useNavigate } from "react-router-dom";
+
+// import Icons
 import { IconHeartHandshake } from "@tabler/icons-react";
 
 // import component
 import Icon from "./Icon";
 
+// import Global Context
+import { useGlobalContext } from "../context";
+
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState("dashboard");
+
+  // destructure global context
+  const { isActive, setIsActive } = useGlobalContext();
 
   return (
     <>

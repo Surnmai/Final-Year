@@ -33,7 +33,7 @@ const App = () => {
     } else if (user && !currentUser) {
       navigate("/onboarding");
     }
-  }, [ready, authenticated, currentUser, user]);
+  }, [ready, navigate, currentUser]);
 
   return (
     <>

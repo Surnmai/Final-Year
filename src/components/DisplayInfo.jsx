@@ -9,6 +9,8 @@ import {
 
 // import useNavigate
 import { useNavigate } from "react-router-dom";
+
+// import components
 import MetricsCard from "./MetricsCard.tsx";
 
 const DisplayInfo = () => {

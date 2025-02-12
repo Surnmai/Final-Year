@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 
 // import icons
 import { close, loader, menu, search } from "../assets";
@@ -16,6 +16,9 @@ import { navLinks } from "../constants/data";
 // import useNavigate
 import { useNavigate } from "react-router-dom";
 
+// import Global Context from UseContext API
+import { useGlobalContext } from "../context";
+
 const Navbar = () => {
   // destructure privy hook
   const { ready, authenticated, login, user, logout } = usePrivy();
@@ -24,8 +27,10 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   //   state managements
-  const [mobile, setMobile] = useState(false);
-  const [isActive, setIsActive] = useState("dashboard");
+  //   destructure  Global Context
+  // const [mobile, setMobile] = useState(false);
+  // const [isActive, setIsActive] = useState("dashboard");
+  const { mobile, setMobile, isActive, setIsActive } = useGlobalContext();
 
   //   console.log("User Info", user);
 
@@ -51,9 +56,9 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="search for records"
-            className="placeholder:text-placeholderColor flex w-full bg-transparent font-epilogue text-[14px] font-normal text-white outline-none"
+            className="flex w-full bg-transparent font-epilogue text-[14px] font-normal text-white outline-none placeholder:text-placeholderColor"
           />
-          <div className="bg-searchIconColor flex h-full w-[75px] cursor-pointer items-center justify-center rounded-[20px]">
+          <div className="flex h-full w-[75px] cursor-pointer items-center justify-center rounded-[20px] bg-searchIconColor">
             <img
               src={search}
               alt="search"
@@ -80,9 +85,9 @@ const Navbar = () => {
           {/* menu & close Icons  */}
           <div onClick={() => setMobile(!mobile)}>
             {mobile ? (
-              <IconX className="text-placeholderColor h-10 w-10 cursor-pointer" />
+              <IconX className="h-10 w-10 cursor-pointer text-placeholderColor" />
             ) : (
-              <IconMenu2 className="text-placeholderColor h-10 w-10 cursor-pointer" />
+              <IconMenu2 className="h-10 w-10 cursor-pointer text-placeholderColor" />
             )}
           </div>
 
@@ -95,7 +100,7 @@ const Navbar = () => {
                 return (
                   <li
                     key={link.name}
-                    className={`text-searchIconColor flex cursor-pointer gap-4 p-4 font-extrabold ${isActive === link.name && "bg-[#3a3a43]"} `}
+                    className={`flex cursor-pointer gap-4 p-4 font-extrabold text-searchIconColor ${isActive === link.name && "bg-[#3a3a43]"} `}
                     onClick={() => {
                       setIsActive(link.name);
                       setMobile(false);
