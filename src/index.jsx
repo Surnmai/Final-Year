@@ -3,8 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
+// const cors = require("cors");
+// app.use(cors({ origin: "true", credentials: true }));
+
 // import privy for authentication
 import { PrivyProvider } from "@privy-io/react-auth";
+import { AppProvider } from "./context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,9 +17,13 @@ root.render(
     config={{
       appearance: {
         theme: "dark",
+        // Display email and wallet as login methods
+        loginMethods: ["email"],
       },
     }}
   >
-    <App />
+    <AppProvider>
+      <App />
+    </AppProvider>
   </PrivyProvider>,
 );

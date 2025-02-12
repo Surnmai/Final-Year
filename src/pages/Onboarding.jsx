@@ -1,16 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import { user } from "../assets";
 
+// import Global Context from UseContext API
+import { useGlobalContext } from "../context";
+
+// import privy
+import { usePrivy } from "@privy-io/react-auth";
+
+// import useNavigate
+import useNavigate from "react-router-dom";
+
 const Onboarding = () => {
-  const [username, setUerName] = useState("");
-  const [age, setAge] = useState("");
-  const [location, setLocation] = useState("");
+  // destrcutre global context
+  const {
+    createUser,
+    username,
+    setUerName,
+    age,
+    setAge,
+    location,
+    setLocation,
+  } = useGlobalContext();
+
+  // destructure usePrivy
+  const { user } = usePrivy();
+  // console.log(user);
+
+  // destructure useNavigate
+  const navigate = useNavigate();
 
   //   handle Onboarding function
   const handleOnboarding = async (e) => {
     e.preventDefault();
 
     // console.log(username, age, location);
+
+    const userData = {
+      username,
+      age: parseInt(age, 10),
+      location,
+      createdBy: user.email.address,
+    };
+
+    const newUser = await createUser(userData);
+    // console.log(newUser);
+
+    if (newUser) {
+      navigate("/profile");
+    }
   };
   return (
     <>
@@ -39,7 +76,7 @@ const Onboarding = () => {
                 value={username}
                 onChange={(e) => setUerName(e.target.value)}
                 required
-                className="focus:outline-searchIconColor w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none"
+                className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none focus:outline-searchIconColor"
               />
             </div>
             {/* Age  */}
@@ -53,7 +90,7 @@ const Onboarding = () => {
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 required
-                className="focus:outline-searchIconColor w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none"
+                className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none focus:outline-searchIconColor"
               />
             </div>
             {/* Location  */}
@@ -71,13 +108,13 @@ const Onboarding = () => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
-                className="focus:outline-searchIconColor w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none"
+                className="w-full rounded-lg bg-neutral-900 px-4 py-3 text-neutral-400 focus-within:outline-none focus:outline-searchIconColor"
               />
             </div>
 
             <button
               type="submit"
-              className="bg-searchIconColor mt-4 w-full rounded-lg py-3 font-semibold text-white transition duration-300 hover:bg-[#16a763]"
+              className="mt-4 w-full rounded-lg bg-searchIconColor py-3 font-semibold text-white transition duration-300 hover:bg-[#16a763]"
             >
               Get Started
             </button>
