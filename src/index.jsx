@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
+// import React Router DOM
+import { BrowserRouter as Router } from "react-router-dom";
+
 // const cors = require("cors");
 // app.use(cors({ origin: "true", credentials: true }));
 
@@ -22,8 +25,10 @@ root.render(
       },
     }}
   >
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <Router>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </Router>
   </PrivyProvider>,
 );

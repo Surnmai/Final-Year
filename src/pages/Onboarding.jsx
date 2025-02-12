@@ -8,7 +8,7 @@ import { useGlobalContext } from "../context";
 import { usePrivy } from "@privy-io/react-auth";
 
 // import useNavigate
-import useNavigate from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
   // destrcutre global context
