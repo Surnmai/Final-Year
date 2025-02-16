@@ -23,6 +23,7 @@ module.exports = {
         columnBackgroundColor: "#161C22",
         placeholderColor: "#4b5264",
         searchIconColor: "#1dc071",
+        modal_bg: "#13131a",
       },
     },
   },

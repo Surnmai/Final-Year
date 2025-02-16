@@ -20,6 +20,21 @@ export const AppProvider = ({ children }) => {
   const [age, setAge] = useState("");
   const [location, setLocation] = useState("");
 
+  // Create Modal States
+  const [foldername, setFolderName] = useState("");
+
+  // Records State for User
+  const [userRecords, setUserRecords] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // function to close and open Modal
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   // DataBase Connection States
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
@@ -35,7 +50,7 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
-  //   function to fetch users email from the database
+  //   function to fetch user details by email from the database
   const fetchUserByEmail = useCallback(async (email) => {
     try {
       const result = await db
@@ -53,18 +68,25 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   //   function to create users data in the database
-  const createUser = useCallback(
-    async (userData) => {
-      try {
-        await db.insert(Users).values(userData).returning().execute();
-        setUsers([(prevUsers) => [...prevUsers, newUser[0]]]);
-      } catch (error) {
-        console.error("Error creating user", error);
-        return null;
-      }
-    },
-    [fetchUsers],
-  );
+  const createUser = useCallback(async (userData) => {
+    try {
+      // Insert the user and capture the user data
+      const newUser = await db
+        .insert(Users)
+        .values(userData)
+        .returning()
+        .execute();
+
+      // Update the state with the new user data
+      setUsers([(prevUsers) => [...prevUsers, newUser[0]]]);
+
+      // Return the newly created user data
+      return newUser[0];
+    } catch (error) {
+      console.error("Error creating user", error);
+      return null;
+    }
+  }, []);
 
   //   function to fetch all records data from the database
   const fetchUserRecords = useCallback(async (userEmail) => {
@@ -76,19 +98,24 @@ export const AppProvider = ({ children }) => {
         .execute();
       setRecords(result);
     } catch (error) {
-      console.error("Error fetching records", error);
+      console.error("Error fetching user records", error);
     }
   }, []);
 
   //   function to create records data in the database
   const createRecord = useCallback(async (recordData) => {
     try {
-      await db
+      // Insert the record and capture the result
+      const newRecord = await db
         .insert(Records)
         .values(recordData)
         .returning({ id: Records.id })
         .execute();
-      setRecords((prevRecords) => [...prevRecords, newRecord[0]]);
+
+      // Update the state with the new record
+      setRecords([(prevRecords) => [...prevRecords, newRecord[0]]]);
+
+      // Return the newly created record
       return newRecord[0];
     } catch (error) {
       console.error("Error creating records", error);
@@ -139,6 +166,14 @@ export const AppProvider = ({ children }) => {
         setIsActive,
         mobile,
         setMobile,
+        foldername,
+        setFolderName,
+        userRecords,
+        setUserRecords,
+        isModalOpen,
+        setIsModalOpen,
+        handleOpenModal,
+        handleCloseModal,
       }}
     >
       {children}

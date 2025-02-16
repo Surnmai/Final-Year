@@ -1,5 +1,4 @@
 import React from "react";
-import { user } from "../assets";
 
 // import Global Context from UseContext API
 import { useGlobalContext } from "../context";

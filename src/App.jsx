@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // import react router
 import { Routes, Route } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 // import Components
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import MedicalRecord from "./pages/records/index";
 
 // import pages
 import { Home, Onboarding, Profile } from "./pages";
@@ -27,7 +28,8 @@ const App = () => {
   // destructure useNavigate
   const navigate = useNavigate();
 
-  useNavigate(() => {
+  // handle side effect related to authentication and user onboarding
+  useEffect(() => {
     if (ready && !authenticated) {
       login();
     } else if (user && !currentUser) {
@@ -46,6 +48,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/medical-records" element={<MedicalRecord />} />
           </Routes>
         </div>
       </div>

@@ -29,7 +29,7 @@ const Sidebar = () => {
       <section className="relative mr-10 hidden sm:flex">
         <div className="sticky top-5 h-[93vh] flex-col items-center justify-between">
           <Link to="/" className="flex items-center justify-center">
-            <div className="rounded-[10px] bg-Sidebar_iconBg p-2">
+            <div className="cursor-pointer rounded-[10px] bg-Sidebar_iconBg p-2">
               <IconHeartHandshake size={40} color="#1ec070" />
             </div>
           </Link>
