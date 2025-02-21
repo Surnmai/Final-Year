@@ -8,11 +8,12 @@ import { useGlobalContext } from "../../../context";
 
 const createRecordModal = ({ isOpen, onClose, onCreate }) => {
   // destructure useGlobal Context
-  const { foldername, setFolderName } = useGlobalContext();
+  const { foldername, setFolderName, handleCloseModal } = useGlobalContext();
 
   // handle the creation of the folder
   const handleCreate = () => {
     onCreate(foldername);
+    handleCloseModal();
     setFolderName("");
   };
   return (

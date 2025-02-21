@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import MedicalRecord from "./pages/records/index";
+import SingleRecordDetails from "./pages/records/single-record-details";
 
 // import pages
 import { Home, Onboarding, Profile } from "./pages";
@@ -49,6 +50,10 @@ const App = () => {
             <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/medical-records" element={<MedicalRecord />} />
+            <Route
+              path="/medical-records/:id"
+              element={<SingleRecordDetails />}
+            />
           </Routes>
         </div>
       </div>

@@ -79,9 +79,9 @@ const index = () => {
     // Filter the records to get the selected record
     const filteredRecords = userRecords.filter(
       (record) => record.recordName === name,
-      navigate(`/medical-records/${name}`),
-      { state: filteredRecords[0] },
     );
+
+    navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
   };
 
   return (

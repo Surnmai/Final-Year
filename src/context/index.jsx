@@ -35,6 +35,12 @@ export const AppProvider = ({ children }) => {
     setIsModalOpen(false);
   };
 
+  // single records page states
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [processing, setProcessing] = useState(false);
+
   // DataBase Connection States
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
@@ -174,6 +180,14 @@ export const AppProvider = ({ children }) => {
         setIsModalOpen,
         handleOpenModal,
         handleCloseModal,
+        file,
+        setFile,
+        uploading,
+        setUploading,
+        uploadSuccess,
+        setUploadSuccess,
+        processing,
+        setProcessing,
       }}
     >
       {children}
