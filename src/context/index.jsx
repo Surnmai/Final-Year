@@ -41,6 +41,10 @@ export const AppProvider = ({ children }) => {
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [processing, setProcessing] = useState(false);
 
+  // state to store file name and type on the single records page
+  const [filename, setFilename] = useState("");
+  const [filetype, setFileType] = useState("");
+
   // DataBase Connection States
   const [users, setUsers] = useState([]);
   const [records, setRecords] = useState([]);
@@ -130,7 +134,7 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   //   create a function to update records in the database
-  const updateRecord = useCallback(async (recordId, recordData) => {
+  const updateRecord = useCallback(async (recordData) => {
     try {
       const { documentID, ...dataToUpdate } = recordData;
 
@@ -188,6 +192,10 @@ export const AppProvider = ({ children }) => {
         setUploadSuccess,
         processing,
         setProcessing,
+        filename,
+        setFilename,
+        filetype,
+        setFileType,
       }}
     >
       {children}

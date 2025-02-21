@@ -35,10 +35,6 @@ const SingleRecordDetails = () => {
     state.analysisResult || "",
   );
 
-  // to store file name and type
-  const [filename, setFilename] = useState("");
-  const [filetype, setFileType] = useState("");
-
   // destructure useNavigate
   const { navigate } = useNavigate;
 
@@ -51,11 +47,15 @@ const SingleRecordDetails = () => {
     uploadSuccess,
     setUploadSuccess,
     processing,
-    setProcessing,
+    // setProcessing,
     updateRecord,
     handleOpenModal,
     handleCloseModal,
     isModalOpen,
+    filename,
+    setFilename,
+    filetype,
+    setFileType,
   } = useGlobalContext();
 
   // function to upload a file from the upload modal
@@ -110,7 +110,7 @@ const SingleRecordDetails = () => {
 
       setAnalysisResult(text);
 
-      // function to update the record table
+      // function to update the record table with our analysis results
       const updatedRecord = await updateRecord({
         documentID: state.id,
         analysisResult: text,
