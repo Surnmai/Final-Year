@@ -11,7 +11,7 @@ import MedicalRecord from "./pages/records/index";
 import SingleRecordDetails from "./pages/records/single-record-details";
 
 // import pages
-import { Home, Onboarding, Profile } from "./pages";
+import { Home, Onboarding, ScreeningSchedule, Profile } from "./pages";
 
 // import useGlobalContext
 import { useGlobalContext } from "./context";
@@ -53,6 +53,10 @@ const App = () => {
             <Route
               path="/medical-records/:id"
               element={<SingleRecordDetails />}
+            />
+            <Route
+              path="/screening-schedules"
+              element={<ScreeningSchedule />}
             />
           </Routes>
         </div>

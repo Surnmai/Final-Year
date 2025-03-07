@@ -28,7 +28,7 @@ const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
 const SingleRecordDetails = () => {
   const { state } = useLocation();
-  //   console.log(state);
+  // console.log(state);
 
   // state to store analysis results
   const [analysisResult, setAnalysisResult] = useState(
@@ -36,7 +36,7 @@ const SingleRecordDetails = () => {
   );
 
   // destructure useNavigate
-  const { navigate } = useNavigate;
+  const navigate = useNavigate();
 
   // destructure useGlobalContext
   const {
@@ -47,7 +47,7 @@ const SingleRecordDetails = () => {
     uploadSuccess,
     setUploadSuccess,
     processing,
-    // setProcessing,
+    setProcessing,
     updateRecord,
     handleOpenModal,
     handleCloseModal,
@@ -97,7 +97,7 @@ const SingleRecordDetails = () => {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
       // creating the prompt variable
-      const prompt = `You are an expert health and any disease diagnosis analyst. Use your knowledge base to answer questions about giving personalized recommended treatments. Give a detailed treatment plan for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable.`;
+      const prompt = `You are an expert health and any disease diagnosis analyst. You can tell the kind of disease based on the symptoms provided. Use your knowledge base to answer questions about giving personalized recommended treatments. Give a detailed treatment plan and what the disease might be for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable.`;
 
       // variable to hold results
       const results = await model.generateContent([prompt, imageParts]);
@@ -128,6 +128,63 @@ const SingleRecordDetails = () => {
     } finally {
       setUploading(false);
     }
+  };
+
+  // process treatment function
+  const processTreatmentPlan = async () => {
+    setProcessing(true);
+
+    // initialize GenerativeAI API key
+    const genAI = new GoogleGenerativeAI(geminiApiKey);
+    // getting the Generative model from google generative AI
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+
+    // creating the prompt variable
+    const prompt = `Your role and goal is to be an that will be using this treatment plan ${analysisResult} to create Columns:
+                - Todo: Tasks that need to be started
+                - Doing: Tasks that are in progress
+                - Done: Tasks that are completed
+          
+                Each task should include a brief description. The tasks should be categorized appropriately based on the stage of the treatment process.
+          
+                Please provide the results in the following  format for easy front-end display no quotating or what so ever just pure the structure below:
+
+                {
+                  "columns": [
+                    { "id": "todo", "title": "Todo" },
+                    { "id": "doing", "title": "Work in progress" },
+                    { "id": "done", "title": "Done" }
+                  ],
+                  "tasks": [
+                    { "id": "1", "columnId": "todo", "content": "Example task 1" },
+                    { "id": "2", "columnId": "todo", "content": "Example task 2" },
+                    { "id": "3", "columnId": "doing", "content": "Example task 3" },
+                    { "id": "4", "columnId": "doing", "content": "Example task 4" },
+                    { "id": "5", "columnId": "done", "content": "Example task 5" }
+                  ]
+                }
+                            
+                `;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text();
+
+    // parse the string to JSON
+    const parsedResponse = JSON.parse(text);
+
+    console.log(text);
+    console.log(parsedResponse);
+
+    // update the record with the generated kabbanboard data
+    const updatedRecord = await updateRecord({
+      documentID: state.id,
+      kanbanRecords: text,
+    });
+    // console.log(updatedRecord);
+
+    navigate("/screening-schedules", { state: parsedResponse });
+    setProcessing(false);
   };
   return (
     <>
@@ -170,7 +227,7 @@ const SingleRecordDetails = () => {
                   <div className="flex w-full flex-col px-6 py-4 text-white">
                     <div>
                       <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-                        Analyze Result
+                        Analyzed Result
                       </h2>
                       <div className="space-y-2">
                         {/* {analysisResult} */}
@@ -181,17 +238,11 @@ const SingleRecordDetails = () => {
                     <div className="mt-5 grid gap-2 sm:flex">
                       <button
                         type="button"
-                        // onClick={processTreatmentPlan}
+                        onClick={processTreatmentPlan}
                         className="inline-flex items-center gap-x-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-800 shadow-sm hover:bg-gray-50 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:hover:bg-neutral-800"
                       >
                         View Treatment plan
                         <IconChevronRight size={20} />
-                        {/* {processing && (
-                          <IconProgress
-                            size={10}
-                            className="mr-3 h-5 w-5 animate-spin"
-                          />
-                        )} */}
                         {processing && (
                           <IconProgress
                             size={10}

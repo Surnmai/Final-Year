@@ -81,6 +81,9 @@ const index = () => {
       (record) => record.recordName === name,
     );
 
+    // console.log(filteredRecords);
+    // console.log(filteredRecords[0]);
+
     navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
   };
 
