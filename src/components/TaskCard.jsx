@@ -40,6 +40,9 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
     setMouseIsOver(false);
   };
 
+  {
+    /* drag task  */
+  }
   if (isDragging) {
     return (
       <div
@@ -49,7 +52,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       />
     );
   }
-
+  // show the task content
   if (editMode) {
     return (
       <div
@@ -81,6 +84,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
   }
   return (
     <>
+      {/* display task content  */}
       <div
         ref={setNodeRef}
         style={style}
@@ -98,7 +102,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
         <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
           {task.content}
         </p>
-
+        {/* show the delete button when the task is hovered  */}
         {mouseIsOver && (
           <button
             onClick={() => {

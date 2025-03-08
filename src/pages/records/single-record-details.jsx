@@ -181,7 +181,7 @@ const SingleRecordDetails = () => {
       documentID: state.id,
       kanbanRecords: text,
     });
-    // console.log(updatedRecord);
+    console.log(updatedRecord);
 
     navigate("/screening-schedules", { state: parsedResponse });
     setProcessing(false);
