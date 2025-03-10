@@ -48,7 +48,7 @@ const ColumnContainer = ({
     transition,
     transform: CSS.Transform.toString(transform),
   };
-
+  // enable dragging
   if (isDragging) {
     return (
       <>
@@ -71,13 +71,17 @@ const ColumnContainer = ({
         <div
           {...attributes}
           {...listeners}
+          // function to enable the edt mode on click
           onClick={() => {
             setEditMode(true);
           }}
           className="text-md m-2 flex h-[60px] cursor-grab items-center justify-between rounded-xl bg-[#13131a] p-3 font-bold"
         >
           <div className="flex gap-2">
+            {/* when not in edit mode just display the title  */}
             {!editMode && column.title}
+
+            {/* when in edit mode display the code below  */}
             {editMode && (
               <input
                 className="rounded border bg-black px-2 outline-none focus:border-green-500"
@@ -116,7 +120,7 @@ const ColumnContainer = ({
             ))}
           </SortableContext>
         </div>
-
+        {/* button to add a new task  */}
         <button
           className="flex items-center gap-2 rounded-md border-2 border-columnBackgroundColor border-x-columnBackgroundColor p-4 hover:bg-mainBackgroundColor hover:text-green-500 active:bg-black"
           onClick={() => {

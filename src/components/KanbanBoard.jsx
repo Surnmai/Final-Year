@@ -209,8 +209,9 @@ const KanbanBoard = ({ state }) => {
               Add Column
             </button>
           </div>
-
+          {/* to render the drag overlay on top of other elements  */}
           {createPortal(
+            //  DND component that shows the item being dragged
             <DragOverlay>
               {activeColumn && (
                 <ColumnContainer

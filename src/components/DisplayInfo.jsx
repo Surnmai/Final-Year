@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // import Icons
 import {
@@ -10,12 +10,24 @@ import {
 // import useNavigate
 import { useNavigate } from "react-router-dom";
 
+// import Context API
+import { useGlobalContext } from "../context/index.jsx";
+
+// import usePrivy
+import { usePrivy } from "@privy-io/react-auth";
+
 // import components
 import MetricsCard from "./MetricsCard.tsx";
 
 const DisplayInfo = () => {
-  // Use Navigate
+  //  destructure se Navigate
   const Navigate = useNavigate();
+
+  // destructure useGlobalContext
+  const { fetchUserRecords, fetchUserByEmail, records } = useGlobalContext();
+
+  //  destructure usePrivy
+  const { user } = usePrivy();
 
   const [metrics, setMetrics] = useState({
     totalFolders: 0,
@@ -25,6 +37,56 @@ const DisplayInfo = () => {
     pendingScreenings: 0,
     overdueScreenings: 0,
   });
+
+  useEffect(() => {
+    if (user) {
+      fetchUserByEmail(user.email.address)
+        .then(() => {
+          const totalFolders = records.length;
+          let aiPersonalisedTreatment = 0;
+          let totalScreenings = 0;
+          let completedScreenings = 0;
+          let pendingScreenings = 0;
+          let overdueScreenings = 0;
+
+          records.forEach((record) => {
+            if (record.kanbanRecords) {
+              try {
+                const kanban = JSON.parse(record.kanbanRecords);
+                aiPersonalisedTreatment += kanban.columns.some((column) =>
+                  column.title === "AI Personalized Treatment" ? 1 : 0,
+                );
+
+                totalScreenings += kanban.tasks.length;
+                completedScreenings = +kanban.tasks.filter((task) => {
+                  task.comlumnID === "done";
+                }).length;
+                pendingScreenings = +kanban.tasks.filter((task) => {
+                  task.comlumnID === "doing";
+                }).length;
+                overdueScreenings = +kanban.tasks.filter((task) => {
+                  task.comlumnID === "overdue";
+                }).length;
+              } catch (error) {
+                console.error("Failed to pass KanbanRecords: ", error);
+              }
+            }
+          });
+
+          setMetrics({
+            totalFolders,
+            totalScreenings,
+            aiPersonalisedTreatment,
+            pendingScreenings,
+            completedScreenings,
+            overdueScreenings,
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [user, fetchUserRecords, records]);
 
   const metricsData = [
     {
