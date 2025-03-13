@@ -17,7 +17,7 @@ const RecordDetailsHeader = ({ recordName }) => {
   // destructure useNavigate
   const navigate = useNavigate();
 
-  //  function to go back to medical records pagge
+  //  function to go back to medical records page
   const goBack = () => {
     if (user) {
       navigate("/medical-records");
