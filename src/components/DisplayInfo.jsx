@@ -58,13 +58,13 @@ const DisplayInfo = () => {
                 );
 
                 totalScreenings += kanban.tasks.length;
-                completedScreenings = +kanban.tasks.filter((task) => {
+                completedScreenings += kanban.tasks.filter((task) => {
                   task.comlumnID === "done";
                 }).length;
-                pendingScreenings = +kanban.tasks.filter((task) => {
+                pendingScreenings += kanban.tasks.filter((task) => {
                   task.comlumnID === "doing";
                 }).length;
-                overdueScreenings = +kanban.tasks.filter((task) => {
+                overdueScreenings += kanban.tasks.filter((task) => {
                   task.comlumnID === "overdue";
                 }).length;
               } catch (error) {

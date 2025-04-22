@@ -207,6 +207,7 @@ const SingleRecordDetails = () => {
           uploadSuccess={uploadSuccess}
           filename={filename}
         />
+
         <RecordDetailsHeader recordName={state.recordName} />
 
         <div className="w-full">
