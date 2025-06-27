@@ -13,10 +13,12 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { PrivyProvider } from "@privy-io/react-auth";
 import { AppProvider } from "./context";
 
+const privyAppID = import.meta.env.VITE_PRIVY_API_ID;
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <PrivyProvider
-    appId="cm4ppk4nz00i1hjjh3bbo5wqb"
+    appId={privyAppID}
     config={{
       appearance: {
         theme: "dark",

@@ -48,7 +48,7 @@ const ColumnContainer = ({
     transition,
     transform: CSS.Transform.toString(transform),
   };
-  // enable dragging
+  // render a placeholder when the column is being dragged
   if (isDragging) {
     return (
       <>

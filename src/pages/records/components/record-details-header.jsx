@@ -1,7 +1,7 @@
 import React from "react";
 
 // import Icons
-import { IconFolderOpen } from "@tabler/icons-react";
+import { IconChevronLeft, IconFolderOpen } from "@tabler/icons-react";
 
 // import privy
 import { usePrivy } from "@privy-io/react-auth";
@@ -37,6 +37,7 @@ const RecordDetailsHeader = ({ recordName }) => {
           href="#"
         >
           {recordName}
+          <IconChevronLeft />
         </a>
       </div>
     </div>

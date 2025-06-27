@@ -22,6 +22,8 @@ import { IconPlus } from "@tabler/icons-react";
 import { createPortal } from "react-dom";
 
 const KanbanBoard = ({ state }) => {
+  // console.log(state);
+
   const defaultCols =
     state?.state?.columns?.map((col) => ({
       id: col?.id,
@@ -34,6 +36,21 @@ const KanbanBoard = ({ state }) => {
       columnId: task?.columnId,
       content: task?.content,
     })) || [];
+
+  // states to store columns and tasks
+  const [columns, setColumns] = useState(defaultCols);
+  const [tasks, setTasks] = useState(defaultTasks);
+
+  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
+
+  // states for the active columns and active task
+  const [activeColumn, setActiveColumn] = useState(null);
+  const [activeTask, setActiveTask] = useState(null);
+
+  // hold the initialization of the useSensors from dnd kit
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
+  );
 
   // function to delete Columns
   const deleteColumn = (id) => {
@@ -90,6 +107,7 @@ const KanbanBoard = ({ state }) => {
     }
   };
 
+  // function to handle the task for drag and drop within or between columns and reaarange the task based on the drag positions and then handle drag and drop for new column
   const onDragEnd = (event) => {
     setActiveColumn(null);
     setActiveTask(null);
@@ -160,28 +178,13 @@ const KanbanBoard = ({ state }) => {
     }
   };
 
-  // states to store columns and tasks
-  const [columns, setColumns] = useState(defaultCols);
-  const [tasks, setTasks] = useState(defaultTasks);
-
-  const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
-
-  // states for the active columns and active task
-  const [activeColumn, setActiveColumn] = useState(null);
-  const [activeTask, setActiveTask] = useState(null);
-
-  // hold the initialization of the useSensors
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-  );
-
   return (
     <>
       <div className="mt-5 min-h-screen w-72 text-white">
         <DndContext
           sensors={sensors}
           onDragStart={onDragStart}
-          onDragEnd={ondragend}
+          onDragEnd={onDragEnd}
           onDragOver={onDragOver}
         >
           <div className="m-auto flex gap-4">
@@ -226,6 +229,8 @@ const KanbanBoard = ({ state }) => {
                   )}
                 />
               )}
+
+              {/* check if there is active task being dragged  */}
               {activeTask && (
                 <TaskCard
                   task={activeTask}

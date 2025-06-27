@@ -84,6 +84,7 @@ const index = () => {
     // console.log(filteredRecords);
     // console.log(filteredRecords[0]);
 
+    // navigate to the medical records page and get the data filtered
     navigate(`/medical-records/${name}`, { state: filteredRecords[0] });
   };
 

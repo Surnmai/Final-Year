@@ -60,22 +60,26 @@ const SingleRecordDetails = () => {
 
   // function to upload a file from the upload modal
   const handleFileChange = (e) => {
+    // console.log(e.target.files[0]);
+
     const file = e.target.files[0];
     setFileType(file.type);
     setFilename(file.name);
     setFile(file);
   };
 
-  // read the file as a base64 encoded string
+  // read the file as a base64 encoded string from the file state when changed
   const readFileAsBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
 
-      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onload = () => resolve(reader.result.split(",")[1]); // Remove the data URL prefix
       reader.onerror = reject;
       reader.readAsDataURL(file);
     });
   };
+
+  // console.log(readFileAsBase64);
 
   // function to handle the file upload file and send a prompt to the Gemini AI
   const handleFileUpload = async () => {
@@ -89,12 +93,15 @@ const SingleRecordDetails = () => {
       // return the file as base64 encoded string
       const base64Data = await readFileAsBase64(file);
 
+      // return image or document type
       const imageParts = [
         { inlineData: { data: base64Data, mimeType: filetype } },
       ];
 
       // getting the Generative model from google generative AI
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash-latest",
+      });
 
       // creating the prompt variable
       const prompt = `You are an expert health and any disease diagnosis analyst. You can tell the kind of disease based on the symptoms provided. Use your knowledge base to answer questions about giving personalized recommended treatments. Give a detailed treatment plan and what the disease might be for me, make it more readable, clear and easy to understand make it paragraphs to make it more readable.`;
@@ -108,9 +115,10 @@ const SingleRecordDetails = () => {
       // variable to get text from response
       const text = response.text();
 
+      // get the text generated and pass it here
       setAnalysisResult(text);
 
-      // function to update the record table with our analysis results
+      // function assigned to a varaible to update the record table with our analysis results
       const updatedRecord = await updateRecord({
         documentID: state.id,
         analysisResult: text,
@@ -136,8 +144,12 @@ const SingleRecordDetails = () => {
 
     // initialize GenerativeAI API key
     const genAI = new GoogleGenerativeAI(geminiApiKey);
+
+    // gemini - 1.5 - flash - latest
     // getting the Generative model from google generative AI
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash-latest",
+    });
 
     // creating the prompt variable
     const prompt = `Your role and goal is to be an that will be using this treatment plan ${analysisResult} to create Columns:
@@ -168,20 +180,28 @@ const SingleRecordDetails = () => {
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    const text = response.text();
+    // const text = response.text();
+
+    let text = response.text();
+
+    // Clean the response by removing markdown code block markers
+    text = text
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
 
     // parse the string to JSON
     const parsedResponse = JSON.parse(text);
 
-    console.log(text);
-    console.log(parsedResponse);
+    // console.log(text);
+    // console.log(parsedResponse);
 
     // update the record with the generated kabbanboard data
     const updatedRecord = await updateRecord({
       documentID: state.id,
       kanbanRecords: text,
     });
-    console.log(updatedRecord);
+    // console.log(updatedRecord);
 
     navigate("/screening-schedules", { state: parsedResponse });
     setProcessing(false);

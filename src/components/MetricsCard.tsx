@@ -1,9 +1,9 @@
 import React from "react";
 
 // import Tabler Icons
-import { IconChevronRight } from "@tabler/icons-react";
+// import { IconChevronRight } from "@tabler/icons-react";
 
-const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
+const MetricsCard = ({ title, value, icon: Icon, onClick }) => {
   return (
     <>
       <div className="flex flex-col rounded-xl border bg-white dark:border-neutral-800 dark:bg-[#13131a]">
@@ -30,14 +30,14 @@ const MetricsCard = ({ title, subtitle, value, icon: Icon, onClick }) => {
         </div>
 
         {/* Link and Icon  */}
-        <a
+        {/* <a
           href="#"
           onClick={onClick}
           className="inline-flex items-center justify-between rounded-b-xl border-t border-neutral-800 px-4 py-3 text-sm text-neutral-400 hover:bg-neutral-800 md:px-5"
         >
           {subtitle}
           <IconChevronRight />
-        </a>
+        </a> */}
       </div>
     </>
   );

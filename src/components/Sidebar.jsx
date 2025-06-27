@@ -34,6 +34,7 @@ const Sidebar = () => {
             </div>
           </Link>
 
+          {/* buttom Icons  */}
           <div className="mt-12 flex w-[76px] flex-1 flex-col items-center justify-between rounded-[20px] bg-Sidebar_bgColor py-4">
             <div className="flex flex-col items-center justify-center gap-3">
               {navLinks.map((link) => {

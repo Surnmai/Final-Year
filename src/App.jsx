@@ -31,9 +31,15 @@ const App = () => {
 
   // handle side effect related to authentication and user onboarding
   useEffect(() => {
+    // if the app is ready but user not authenticated condition
     if (ready && !authenticated) {
       login();
-    } else if (user && !currentUser) {
+    }
+    // if the user is loged in but not onboarderd
+    // else if (user && !currentUser) {
+    //   navigate("/onboarding");
+    // }
+    else if (ready && authenticated && user && !currentUser) {
       navigate("/onboarding");
     }
   }, [ready, navigate, currentUser]);

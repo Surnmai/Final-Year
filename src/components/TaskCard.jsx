@@ -43,6 +43,8 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
   {
     /* drag task  */
   }
+
+  // render a placeholder when the task is dragged
   if (isDragging) {
     return (
       <div
@@ -52,7 +54,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
       />
     );
   }
-  // show the task content
+  // render a task card in edit mode
   if (editMode) {
     return (
       <div
@@ -68,7 +70,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
           className="h-[90%] w-full resize-none rounded border-none bg-transparent text-white focus:outline-none"
           value={task.content}
           autoFocus
-          placeholder="Task Content Here "
+          placeholder="Task Content Here"
           onBlur={toggleEditMode}
           onKeyDown={(e) => {
             if (e.key === "Enter" && e.shiftKey) {
@@ -84,7 +86,7 @@ const TaskCard = ({ task, deleteTask, updateTask }) => {
   }
   return (
     <>
-      {/* display task content  */}
+      {/* render the task card in a view mode  */}
       <div
         ref={setNodeRef}
         style={style}

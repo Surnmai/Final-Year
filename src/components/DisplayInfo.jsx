@@ -8,7 +8,7 @@ import {
 } from "@tabler/icons-react";
 
 // import useNavigate
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 // import Context API
 import { useGlobalContext } from "../context/index.jsx";
@@ -21,7 +21,7 @@ import MetricsCard from "./MetricsCard.tsx";
 
 const DisplayInfo = () => {
   //  destructure se Navigate
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
 
   // destructure useGlobalContext
   const { fetchUserRecords, fetchUserByEmail, records } = useGlobalContext();
@@ -91,52 +91,52 @@ const DisplayInfo = () => {
   const metricsData = [
     {
       title: "Specialist Appointment Pending",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.pendingScreenings,
       icon: IconHourglassHigh,
-      onclick: () => Navigate("/appointments/pending"),
+      // onclick: () => Navigate("/appointments/pending"),
     },
     {
       title: "Treatment Progress Update",
-      subtitle: "View",
+      // subtitle: "View",
       value: `${metrics.completedScreenings} of ${metrics.totalScreenings}`,
       icon: IconCircleDashedCheck,
-      onclick: () => Navigate("/appointments/progress"),
+      // onclick: () => Navigate("/appointments/progress"),
     },
     {
       title: "Total Folders",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.totalFolders,
       icon: IconCircleDashedCheck,
-      onclick: () => Navigate("/folders"),
+      // onclick: () => Navigate("/folders"),
     },
     {
       title: "Total Screenings",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.totalScreenings,
       icon: IconUserScan,
-      onclick: () => Navigate("/screenings"),
+      // onclick: () => Navigate("/screenings"),
     },
     {
       title: "Completed Screenings",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.completedScreenings,
       icon: IconCircleDashedCheck,
-      onclick: () => Navigate("/screenings/completed"),
+      // onclick: () => Navigate("/screenings/completed"),
     },
     {
       title: "Pending Screenings",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.pendingScreenings,
       icon: IconCircleDashedCheck,
-      onclick: () => Navigate("/screenings/pending"),
+      // onclick: () => Navigate("/screenings/pending"),
     },
     {
       title: "Overdue Screenings",
-      subtitle: "View",
+      // subtitle: "View",
       value: metrics.overdueScreenings,
       icon: IconCircleDashedCheck,
-      onclick: () => Navigate("/screenings/overdue"),
+      // onclick: () => Navigate("/screenings/overdue"),
     },
   ];
 

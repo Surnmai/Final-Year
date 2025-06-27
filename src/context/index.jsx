@@ -70,6 +70,9 @@ export const AppProvider = ({ children }) => {
         .execute();
 
       if (result.length > 0) {
+        // console.log(result);
+        // console.log(result[0]);
+
         setCurrentUser(result[0]);
       }
     } catch (error) {
@@ -77,7 +80,7 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
-  //   function to create users data in the database
+  //   function to create/insert users data in the database
   const createUser = useCallback(async (userData) => {
     try {
       // Insert the user and capture the user data
@@ -143,6 +146,7 @@ export const AppProvider = ({ children }) => {
         .set(dataToUpdate)
         .where(eq(Records.id, documentID))
         .returning();
+
       setRecords((prevRecords) =>
         prevRecords.map((record) =>
           record.id === documentID ? [updateRecords[0]] : record,

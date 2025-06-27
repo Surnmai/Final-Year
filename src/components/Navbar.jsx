@@ -50,9 +50,9 @@ const Navbar = () => {
 
   return (
     <>
-      <section className="mb-[35px] flex flex-col-reverse justify-between gap-6 md:flex-row">
+      <section className="mb-[35px] flex flex-col-reverse justify-end gap-6 md:flex-row">
         {/* search bar  */}
-        <div className="flex h-[60px] max-w-[458px] flex-row rounded-[100px] bg-Sidebar_bgColor px-4 py-2 lg:flex-1">
+        {/* <div className="flex h-[60px] max-w-[458px] flex-row rounded-[100px] bg-Sidebar_bgColor px-4 py-2 lg:flex-1">
           <input
             type="text"
             placeholder="search for records"
@@ -65,7 +65,7 @@ const Navbar = () => {
               className="h-[20px] w-[20px] object-contain"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Login & logout Buttons  */}
         <div className="hidden flex-row justify-end gap-2 sm:flex">

@@ -8,7 +8,7 @@ import KanbanBoard from "../components/KanbanBoard";
 
 const ScreeningSchedule = () => {
   const state = useLocation();
-  console.log(state);
+  // console.log(state);
 
   //   console.log(state.tasks[0].content);
 

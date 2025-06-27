@@ -45,7 +45,7 @@ const Onboarding = () => {
     // console.log(newUser);
 
     if (newUser) {
-      navigate("/profile");
+      navigate("/");
     }
   };
   return (
