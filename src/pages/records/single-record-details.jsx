@@ -100,7 +100,7 @@ const SingleRecordDetails = () => {
 
       // getting the Generative model from google generative AI
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash-latest",
+        model: "gemini-2.5-flash",
       });
 
       // creating the prompt variable
@@ -148,7 +148,7 @@ const SingleRecordDetails = () => {
     // gemini - 1.5 - flash - latest
     // getting the Generative model from google generative AI
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash-latest",
+      model: "gemini-2.5-flash",
     });
 
     // creating the prompt variable
